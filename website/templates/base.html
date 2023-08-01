@@ -88,9 +88,27 @@
     window.location.href = "/";
   });
   }
+
+  function updateTask(taskId) {
+    fetch("/updateTask", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "taskId": taskId,
+      }),
+    }).then((res) => {
+      if (res.status === 200) {
+        window.location.href = "/";
+      } else {
+        // handle error
+      }
+    });
+  }
+  
 </script>
 {% endblock %}
-
 
   </body>
 </html>

@@ -5,10 +5,16 @@
     <ul class="list-group list-group-flush" id="tasks">
         {% for task in user.tasks %}
         <li class="list-group-item">
-            {{ task.taskTitle }}
-            <button type="button" class="close" onClick="deleteTask({{task.taskId}})">
+            {{ task.taskTitle }} </br>
+            {{ task.taskDescription }} </br>
+            {{ task.taskStatus }} </br>
+            <button type="button" class="close" onclick="deleteTask({{ task.taskId }})">
                 <span aria-hidden="true">&times;</span>
             </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateTaskModal" data-task-id="{{ task.taskId }}">
+              Update Task
+          </button>
+      
         </li>
         {% endfor %}
     </ul>
@@ -33,4 +39,44 @@
             <button type="submit" class="btn btn-primary">Add Task</button>
         </div>
     </form>
-{% endblock %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateTaskModalLabel">Update Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="PUT" action="/updateTask">
+              <input type="hidden" name="taskId" id="taskId">
+              <div class="form-group">
+                <label for="taskTitle">Task Title</label>
+                <input type="text" class="form-control" id="taskTitle" name="taskTitle">
+              </div>
+              <div class="form-group">
+                <label for="taskDescription">Task Description</label>
+                <textarea class="form-control" id="taskDescription" name="taskDescription"></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="taskStatus">Task Status</label>
+                <select class="form-control" id="taskStatus" name="taskStatus">
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Update Task">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock%}
