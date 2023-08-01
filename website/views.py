@@ -11,7 +11,7 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     if request.method == 'POST': 
-        task = request.form.get('task')#Gets the task from the HTML 
+        task = request.form.get('taskTitle')#Gets the task from the HTML 
 
         if len(task) < 1:
             flash('Task is too short!', category='error') 
