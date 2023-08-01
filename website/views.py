@@ -3,6 +3,9 @@ from flask_login import login_required, current_user
 from .models import Task
 from . import db
 import json
+import datetime
+from datetime import datetime
+
 
 views = Blueprint('views', __name__)
 
@@ -10,23 +13,33 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST': 
-        task = request.form.get('taskTitle')#Gets the task from the HTML 
+    taskDate = datetime.strptime('2023-08-01', '%Y-%m-%d')
+    if request.method == 'POST':
+        taskTitle = request.form.get('taskTitle')
+        taskDescription = request.form.get('taskDescription')
+        taskDate = request.form.get('taskDate')
+        taskStatus = request.form.get('taskStatus')
 
-        if len(task) < 1:
-            flash('Task is too short!', category='error') 
+        if len(taskTitle) < 1:
+            flash('Task is too short!', category='error')
         else:
-            newTask = Task(taskDescription=task, user_id=current_user.id)  #providing the schema for the Task 
-            db.session.add(newTask) #adding the Task to the database 
+            newTask = Task(
+                taskTitle=taskTitle,
+                taskDescription=taskDescription,
+                taskDate=taskDate,
+                taskStatus=taskStatus,
+                user_id=current_user.id,
+            )
+            db.session.add(newTask)
             db.session.commit()
             flash('Task added!', category='success')
 
-    return render_template("home.html", user=current_user)
+    return render_template('home.html', user=current_user)
 
 
 @views.route('/deleteTask', methods=['POST'])
-def deleteTask():  
-    task = json.loads(request.taskDescription) # this function expects a JSON from the INDEX.js file 
+def delete_task():
+    task = json.loads(request.taskTitle)
     taskId = task['taskId']
     task = Task.query.get(taskId)
     if task:

@@ -5,7 +5,7 @@
     <ul class="list-group list-group-flush" id="tasks">
         {% for task in user.tasks %}
         <li class="list-group-item">
-            {{ task.taskDescription }}
+            {{ task.taskTitle }}
             <button type="button" class="close" onClick="deleteTask"({{task.taskId}})>
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -21,10 +21,7 @@
             <label for="taskDescription">Task Description</label>
             <textarea class="form-control" id="taskDescription" name="taskDescription"></textarea>
         </div>
-        <div class="form-group">
-            <label for="taskDate">Task Date</label>
-            <input type="date" class="form-control" id="taskDate" name="taskDate">
-        </div>
+        
         <div class="form-group">
             <label for="taskStatus">Task Status</label>
             <select class="form-control" id="taskStatus" name="taskStatus">
