@@ -2,14 +2,14 @@
     %}
     <h1 align="center">My Tasks</h1>
     <ul class="list-group list-group-flush" id="tasks">
-      
+      {% for task in user.tasks %}
       <li class="list-group-item">
-        
-        <button type="button" class="close" onClick="deleteTask">
+        {{ task.taskDescription }}
+        <button type="button" class="close" onClick="deleteTask"({{task.taskId}})>
           <span aria-hidden="true">&times;</span>
         </button>
       </li>
-      
+      {% endfor %}
     </ul>
     <form method="POST">
       <textarea name="task" id="task" class="form-control"></textarea>
