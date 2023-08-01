@@ -80,6 +80,9 @@
       function deleteTask(taskId) {
   fetch("/deleteTask", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",  // Set the content type to JSON
+    },
     body: JSON.stringify({ taskId: taskId }),
   }).then((_res) => {
     window.location.href = "/";

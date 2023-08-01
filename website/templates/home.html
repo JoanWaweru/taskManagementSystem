@@ -6,7 +6,7 @@
         {% for task in user.tasks %}
         <li class="list-group-item">
             {{ task.taskTitle }}
-            <button type="button" class="close" onClick="deleteTask"({{task.taskId}})>
+            <button type="button" class="close" onClick="deleteTask({{task.taskId}})">
                 <span aria-hidden="true">&times;</span>
             </button>
         </li>

@@ -38,9 +38,8 @@ def home():
 
 
 @views.route('/deleteTask', methods=['POST'])
-def delete_task():
-    task = json.loads(request.taskTitle)
-    taskId = task['taskId']
+def deleteTask():
+    taskId = int(request.json['taskId'])
     task = Task.query.get(taskId)
     if task:
         if task.user_id == current_user.id:
